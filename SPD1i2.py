@@ -5,7 +5,7 @@ import timeit
 ### TODO ###
 # 1. Dodac przerwania
 
-plik = open("data20.txt", "r")
+plik = open("data/data20.txt", "r")
 linie = plik.readlines()
 n = int(linie[0].split()[0])
 
