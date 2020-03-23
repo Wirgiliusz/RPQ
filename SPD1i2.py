@@ -115,15 +115,15 @@ def schrageWithHeap(zad):
 
     while len(G) != 0 or len(N) != 0:
         while len(N) != 0 and N[0][0] <= t:
-            temp = N[0] # bierzemy zadanie z najmniejszym r
-            temp[0], temp[2] = temp[2]*-1, temp[0] # zamieniamy miejscami r na -q a q na r [r,p,q]->[-q,p,r]
-            heapq.heappush(G, temp) # dzieki powyzszemu kopiec G bedzie mial na szczycie zadanie z najwiekszym q
+            zadN_minR = N[0] # bierzemy zadanie z najmniejszym r
+            zadN_minR[0], zadN_minR[2] = zadN_minR[2]*-1, zadN_minR[0] # zamieniamy miejscami r na -q a q na r [r,p,q]->[-q,p,r]
+            heapq.heappush(G, zadN_minR) # dzieki powyzszemu kopiec G bedzie mial na szczycie zadanie z najwiekszym q
             heapq.heappop(N)
         if len(G) != 0:
-            temp = heapq.heappop(G)
-            temp[0], temp[2] = temp[2], temp[0]*-1 # odwracamy poprzednia zamiane, czyli teraz -q spowrotem na r, a r na -(-q) [-q,p,r]->[r,p,q]
-            pi.append(temp)
-            t = t + temp[1]
+            zadG_maxQ = heapq.heappop(G)
+            zadG_maxQ[0], zadG_maxQ[2] = zadG_maxQ[2], zadG_maxQ[0]*-1 # odwracamy poprzednia zamiane, czyli teraz -q spowrotem na r, a r na -(-q) [-q,p,r]->[r,p,q]
+            pi.append(zadG_maxQ)
+            t = t + zadG_maxQ[1]
         else:
             t = N[0][0]
 
@@ -175,9 +175,9 @@ def schragePMTNWithHeap(zad):
 
     while len(G) != 0 or len(N) != 0:
         while len(N) != 0 and N[0][0] <= t:
-            zadN_lowest_r = N[0] # bierzemy zadanie z najmniejszym r
-            zadN_lowest_r[0], zadN_lowest_r[2] = zadN_lowest_r[2]*-1, zadN_lowest_r[0] # zamieniamy miejscami r na -q a q na r [r,p,q]->[-q,p,r]
-            heapq.heappush(G, zadN_lowest_r) # dzieki powyzszemu kopiec G bedzie mial na szczycie zadanie z najwiekszym q
+            zadN_minR = N[0] # bierzemy zadanie z najmniejszym r
+            zadN_minR[0], zadN_minR[2] = zadN_minR[2]*-1, zadN_minR[0] # zamieniamy miejscami r na -q a q na r [r,p,q]->[-q,p,r]
+            heapq.heappush(G, zadN_minR) # dzieki powyzszemu kopiec G bedzie mial na szczycie zadanie z najwiekszym q
             if(N[0][2] > l[2]):
                 l[1] = t - N[0][0]
                 t = N[0][0]
@@ -186,11 +186,11 @@ def schragePMTNWithHeap(zad):
             heapq.heappop(N)
 
         if len(G) != 0:
-            zadG_highest_q = heapq.heappop(G)
-            zadG_highest_q[0], zadG_highest_q[2] = zadG_highest_q[2], zadG_highest_q[0]*-1 # odwracamy poprzednia zamiane, czyli teraz -q spowrotem na r, a r na -(-q) [-q,p,r]->[r,p,q]
-            t = t + zadG_highest_q[1]
-            l = zadG_highest_q
-            Cmax = max(Cmax, t+zadG_highest_q[2])
+            zadG_maxQ = heapq.heappop(G)
+            zadG_maxQ[0], zadG_maxQ[2] = zadG_maxQ[2], zadG_maxQ[0]*-1 # odwracamy poprzednia zamiane, czyli teraz -q spowrotem na r, a r na -(-q) [-q,p,r]->[r,p,q]
+            t = t + zadG_maxQ[1]
+            l = zadG_maxQ
+            Cmax = max(Cmax, t + zadG_maxQ[2])
 
         else:
             t = N[0][0]
