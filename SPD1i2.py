@@ -5,7 +5,7 @@ import timeit
 ### TODO ###
 # 1. Dodac przerwania
 
-plik = open("dane_testowe/in200.txt", "r")
+plik = open("dane_testowe/in50.txt", "r")
 linie = plik.readlines()
 n = int(linie[0].split()[0])
 
@@ -154,7 +154,7 @@ def schragePMTN(zad):
             zadG_maxQ_idx = maxq(G)
             t = t + G[zadG_maxQ_idx][1]
             l = G[zadG_maxQ_idx]
-            Cmax = max(Cmax, t+G[zadG_maxQ_idx][2])
+            Cmax = max(Cmax, t + G[zadG_maxQ_idx][2])
             G.pop(zadG_maxQ_idx)
         else:
             t = N[minr(N)][0]
@@ -182,6 +182,7 @@ def schragePMTNWithHeap(zad):
                 l[1] = t - N[0][0]
                 t = N[0][0]
                 if(l[1] > 0):
+                    l[0], l[2] = l[2]*-1, l[0]
                     heapq.heappush(G, l)
             heapq.heappop(N)
 
@@ -191,7 +192,6 @@ def schragePMTNWithHeap(zad):
             t = t + zadG_maxQ[1]
             l = zadG_maxQ
             Cmax = max(Cmax, t + zadG_maxQ[2])
-
         else:
             t = N[0][0]
 
