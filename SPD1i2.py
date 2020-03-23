@@ -5,7 +5,7 @@ import timeit
 ### TODO ###
 # 1. Dodac przerwania
 
-plik = open("data/data20.txt", "r")
+plik = open("dane_testowe/in200.txt", "r")
 linie = plik.readlines()
 n = int(linie[0].split()[0])
 
@@ -163,6 +163,41 @@ def schragePMTN(zad):
     print("Czas wykonania: {:f}".format(end-start))
     return Cmax
 
+def schragePMTNWithHeap(zad):
+    start = timeit.default_timer()
+    G = []
+    heapq.heapify(G) # kopiec przechwowujacy zadania wedlug malejacego q (max na szczycie)
+    N = zad
+    heapq.heapify(N) # kopiec przechowujacy zadania wedlug rosnacego r (min na szczycie)
+    t = N[0][0]
+    l = [0,0,0]
+    Cmax = 0
+
+    while len(G) != 0 or len(N) != 0:
+        while len(N) != 0 and N[0][0] <= t:
+            zadN_lowest_r = N[0] # bierzemy zadanie z najmniejszym r
+            zadN_lowest_r[0], zadN_lowest_r[2] = zadN_lowest_r[2]*-1, zadN_lowest_r[0] # zamieniamy miejscami r na -q a q na r [r,p,q]->[-q,p,r]
+            heapq.heappush(G, zadN_lowest_r) # dzieki powyzszemu kopiec G bedzie mial na szczycie zadanie z najwiekszym q
+            if(N[0][2] > l[2]):
+                l[1] = t - N[0][0]
+                t = N[0][0]
+                if(l[1] > 0):
+                    heapq.heappush(G, l)
+            heapq.heappop(N)
+
+        if len(G) != 0:
+            zadG_highest_q = heapq.heappop(G)
+            zadG_highest_q[0], zadG_highest_q[2] = zadG_highest_q[2], zadG_highest_q[0]*-1 # odwracamy poprzednia zamiane, czyli teraz -q spowrotem na r, a r na -(-q) [-q,p,r]->[r,p,q]
+            t = t + zadG_highest_q[1]
+            l = zadG_highest_q
+            Cmax = max(Cmax, t+zadG_highest_q[2])
+
+        else:
+            t = N[0][0]
+
+    end = timeit.default_timer()
+    print("Czas wykonania: {:f}".format(end-start))
+    return Cmax
 
 '''
 # Oryginal
@@ -192,3 +227,6 @@ print("Czas: ", calculate(nowe_zadania))
 
 print("- SchragePMTN -")
 print("Czas: ", schragePMTN(zadania.copy()))
+
+print("- SchragePMTNWithHeap -")
+print("Czas: ", schragePMTNWithHeap(zadania.copy()))
