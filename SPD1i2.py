@@ -104,30 +104,6 @@ def schrage(zad):
     print("Czas wykonania: {:f}".format(end-start))
     return pi
     
-def schrageWithHalfHeap(zad):
-    start = timeit.default_timer()
-    pi = []
-    G = []
-    N = zad
-    heapq.heapify(N)
-    t = N[0][0]
-
-    while len(G) != 0 or len(N) != 0:
-        while len(N) != 0 and N[0][0] <= t:
-            G.append(N[0])
-            heapq.heappop(N)
-        if len(G) != 0:
-            indeks = maxq(G)
-            pi.append(G[indeks])
-            t = t + G[indeks][1]
-            G.pop(indeks)
-        else:
-            t = N[0][0]
-
-    end = timeit.default_timer()
-    print("Czas wykonania: {:f}".format(end-start))
-    return pi
-
 def schrageWithHeap(zad):
     start = timeit.default_timer()
     pi = []
@@ -206,11 +182,6 @@ print("Czas: ", calculate(zadania))
 '''
 print("- Schrage -")
 nowe_zadania = schrage(zadania.copy())
-print("Kolejnosc: ", getOrder(nowe_zadania))
-print("Czas: ", calculate(nowe_zadania))
-
-print("- SchrageWithHalfHeap -")
-nowe_zadania = schrageWithHalfHeap(zadania.copy())
 print("Kolejnosc: ", getOrder(nowe_zadania))
 print("Czas: ", calculate(nowe_zadania))
 
