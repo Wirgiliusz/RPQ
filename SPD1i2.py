@@ -89,14 +89,14 @@ def schrage(zad):
 
     while len(G) != 0 or len(N) != 0:
         while len(N) != 0 and N[minr(N)][0] <= t:
-            indeks = minr(N)
-            G.append(N[indeks])
-            N.pop(indeks)
+            zadN_minR_idx = minr(N)
+            G.append(N[zadN_minR_idx])
+            N.pop(zadN_minR_idx)
         if len(G) != 0:
-            indeks = maxq(G)
-            pi.append(G[indeks])
-            t = t + G[indeks][1]
-            G.pop(indeks)
+            zadG_maxQ_idx = maxq(G)
+            pi.append(G[zadG_maxQ_idx])
+            t = t + G[zadG_maxQ_idx][1]
+            G.pop(zadG_maxQ_idx)
         else:
             t = N[minr(N)][0]
 
@@ -141,21 +141,21 @@ def schragePMTN(zad):
 
     while len(G) != 0 or len(N) != 0:
         while len(N) != 0 and N[minr(N)][0] <= t:
-            indeks = minr(N)
-            G.append(N[indeks])
-            if(N[indeks][2] > l[2]):
-                l[1] = t - N[indeks][0]
-                t = N[indeks][0]
+            zadN_minR_idx = minr(N)
+            G.append(N[zadN_minR_idx])
+            if(N[zadN_minR_idx][2] > l[2]):
+                l[1] = t - N[zadN_minR_idx][0]
+                t = N[zadN_minR_idx][0]
                 if(l[1] > 0):
                     G.append(l)
-            N.pop(indeks)
+            N.pop(zadN_minR_idx)
 
         if len(G) != 0:
-            indeks = maxq(G)
-            t = t + G[indeks][1]
-            l = G[indeks]
-            Cmax = max(Cmax, t+G[indeks][2])
-            G.pop(indeks)
+            zadG_maxQ_idx = maxq(G)
+            t = t + G[zadG_maxQ_idx][1]
+            l = G[zadG_maxQ_idx]
+            Cmax = max(Cmax, t+G[zadG_maxQ_idx][2])
+            G.pop(zadG_maxQ_idx)
         else:
             t = N[minr(N)][0]
 
