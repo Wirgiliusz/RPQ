@@ -40,7 +40,7 @@ def sortRQ(zad):
         if zmiana == False:
             return
 
-def calculate(zad):
+def calculate_Cmax(zad):
     S = []
     C = []
     Cmax = 0
@@ -203,27 +203,27 @@ def schragePMTNWithHeap(zad):
 # Oryginal
 print("- Oryginal -")
 print("Kolejnosc: ", getOrder(zadania))
-print("Czas: ", calculate(zadania))
+print("Czas: ", calculate_Cmax(zadania))
 # Sort R
 print("- SortR -")
 sortR(zadania)
 print("Kolejnosc: ", getOrder(zadania))
-print("Czas: ", calculate(zadania))
+print("Czas: ", calculate_Cmax(zadania))
 # Sort RQ
 print("- SortRQ -")
 sortRQ(zadania)
 print("Kolejnosc: ", getOrder(zadania))
-print("Czas: ", calculate(zadania))
+print("Czas: ", calculate_Cmax(zadania))
 '''
 print("- Schrage -")
 nowe_zadania = schrage(zadania.copy())
 print("Kolejnosc: ", getOrder(nowe_zadania))
-print("Czas: ", calculate(nowe_zadania))
+print("Czas: ", calculate_Cmax(nowe_zadania))
 
 print("- SchrageWithHeap -")
 nowe_zadania = schrageWithHeap(zadania.copy())
 print("Kolejnosc: ", getOrder(nowe_zadania))
-print("Czas: ", calculate(nowe_zadania))
+print("Czas: ", calculate_Cmax(nowe_zadania))
 
 print("- SchragePMTN -")
 print("Czas: ", schragePMTN(zadania.copy()))
