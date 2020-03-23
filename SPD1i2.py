@@ -154,6 +154,40 @@ def schrageWithHeap(zad):
     end = timeit.default_timer()
     print("Czas wykonania: {:f}".format(end-start))
     return pi
+
+def schragePMTN(zad):
+    start = timeit.default_timer()
+    G = []
+    N = zad
+    t = N[minr(N)][0]
+    l = [0,0,0]
+    Cmax = 0
+
+    while len(G) != 0 or len(N) != 0:
+        while len(N) != 0 and N[minr(N)][0] <= t:
+            indeks = minr(N)
+            G.append(N[indeks])
+            if(N[indeks][2] > l[2]):
+                l[1] = t - N[indeks][0]
+                t = N[indeks][0]
+                if(l[1] > 0):
+                    G.append(l)
+            N.pop(indeks)
+
+        if len(G) != 0:
+            indeks = maxq(G)
+            t = t + G[indeks][1]
+            l = G[indeks]
+            Cmax = max(Cmax, t+G[indeks][2])
+            G.pop(indeks)
+        else:
+            t = N[minr(N)][0]
+
+    end = timeit.default_timer()
+    print("Czas wykonania: {:f}".format(end-start))
+    return Cmax
+
+
 '''
 # Oryginal
 print("- Oryginal -")
@@ -184,3 +218,6 @@ print("- SchrageWithHeap -")
 nowe_zadania = schrageWithHeap(zadania.copy())
 print("Kolejnosc: ", getOrder(nowe_zadania))
 print("Czas: ", calculate(nowe_zadania))
+
+print("- SchragePMTN -")
+print("Czas: ", schragePMTN(zadania.copy()))
