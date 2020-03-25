@@ -159,8 +159,7 @@ def schragePMTN(zad):
             G.pop(zadG_maxQ_idx)
         else:
             t = N[minr(N)][0]
-        print(str(Cmax) + ' ', end='')
-
+        
     end = timeit.default_timer()
     print("Czas wykonania: {:f}".format(end-start))
     return Cmax
@@ -195,7 +194,6 @@ def schragePMTNWithHeap(zad):
             Cmax = max(Cmax, t + zadG_maxQ[2])
         else:
             t = N[0][0]
-        print(str(Cmax) + ' ', end='')
 
     end = timeit.default_timer()
     print("Czas wykonania: {:f}".format(end-start))
