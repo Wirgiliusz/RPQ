@@ -1,6 +1,7 @@
 import math
 import heapq
 import timeit
+import copy
 
 ### TODO ###
 # 1. Dodac przerwania
@@ -158,6 +159,7 @@ def schragePMTN(zad):
             G.pop(zadG_maxQ_idx)
         else:
             t = N[minr(N)][0]
+        print(str(Cmax) + ' ', end='')
 
     end = timeit.default_timer()
     print("Czas wykonania: {:f}".format(end-start))
@@ -175,16 +177,15 @@ def schragePMTNWithHeap(zad):
 
     while len(G) != 0 or len(N) != 0:
         while len(N) != 0 and N[0][0] <= t:
-            zadN_minR = N[0] # bierzemy zadanie z najmniejszym r
-            zadN_minR[0], zadN_minR[2] = zadN_minR[2]*-1, zadN_minR[0] # zamieniamy miejscami r na -q a q na r [r,p,q]->[-q,p,r]
-            heapq.heappush(G, zadN_minR) # dzieki powyzszemu kopiec G bedzie mial na szczycie zadanie z najwiekszym q
-            if(N[0][2] > l[2]):
-                l[1] = t - N[0][0]
-                t = N[0][0]
+            zadN_minR = heapq.heappop(N) # bierzemy zadanie z najmniejszym r
+            if(zadN_minR[2] > l[2]):
+                l[1] = t - zadN_minR[0]
+                t = zadN_minR[0]
                 if(l[1] > 0):
                     l[0], l[2] = l[2]*-1, l[0]
                     heapq.heappush(G, l)
-            heapq.heappop(N)
+            zadN_minR[0], zadN_minR[2] = zadN_minR[2]*-1, zadN_minR[0] # zamieniamy miejscami r na -q a q na r [r,p,q]->[-q,p,r]
+            heapq.heappush(G, zadN_minR) # dzieki powyzszemu kopiec G bedzie mial na szczycie zadanie z najwiekszym q
 
         if len(G) != 0:
             zadG_maxQ = heapq.heappop(G)
@@ -194,6 +195,7 @@ def schragePMTNWithHeap(zad):
             Cmax = max(Cmax, t + zadG_maxQ[2])
         else:
             t = N[0][0]
+        print(str(Cmax) + ' ', end='')
 
     end = timeit.default_timer()
     print("Czas wykonania: {:f}".format(end-start))
@@ -216,17 +218,21 @@ print("Kolejnosc: ", getOrder(zadania))
 print("Czas: ", calculate_Cmax(zadania))
 '''
 print("- Schrage -")
-nowe_zadania = schrage(zadania.copy())
+nowe_zadania = schrage(copy.deepcopy(zadania))
 print("Kolejnosc: ", getOrder(nowe_zadania))
 print("Czas: ", calculate_Cmax(nowe_zadania))
 
 print("- SchrageWithHeap -")
-nowe_zadania = schrageWithHeap(zadania.copy())
+nowe_zadania = schrageWithHeap(copy.deepcopy(zadania))
 print("Kolejnosc: ", getOrder(nowe_zadania))
 print("Czas: ", calculate_Cmax(nowe_zadania))
 
 print("- SchragePMTN -")
-print("Czas: ", schragePMTN(zadania.copy()))
+print("Czas: ", schragePMTN(copy.deepcopy(zadania)))
 
 print("- SchragePMTNWithHeap -")
-print("Czas: ", schragePMTNWithHeap(zadania.copy()))
+print("Czas: ", schragePMTNWithHeap(copy.deepcopy(zadania)))
+
+
+
+
