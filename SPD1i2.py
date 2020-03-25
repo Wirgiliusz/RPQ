@@ -4,7 +4,8 @@ import timeit
 import copy
 
 ### TODO ###
-# 1. Dodac przerwania
+#1. Dodac Carliera
+#2. Zrobic pomiary
 
 plik = open("dane_testowe/in50.txt", "r")
 linie = plik.readlines()
