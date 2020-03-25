@@ -230,7 +230,3 @@ print("Czas: ", schragePMTN(copy.deepcopy(zadania)))
 
 print("- SchragePMTNWithHeap -")
 print("Czas: ", schragePMTNWithHeap(copy.deepcopy(zadania)))
-
-
-
-
