@@ -7,7 +7,7 @@ import copy
 #1. Dodac Carliera
 #2. Zrobic pomiary
 
-plik = open("data/data10.txt", "r")
+plik = open("data/datatest.txt", "r")
 linie = plik.readlines()
 n = int(linie[0].split()[0])
 
@@ -225,8 +225,10 @@ def schragePMTNWithHeap(zad):
     print("Czas wykonania: {:f}".format(end-start))
     return Cmax
 
+UB = math.inf
 def carlier(zad):
-    UB = math.inf
+    #UB = math.inf
+    global UB
     pi = schrageWithHeap(copy.deepcopy(zad))
     U = calculate_Cmax(pi)
     if U < UB:
@@ -236,7 +238,7 @@ def carlier(zad):
     Cmax = 0
     idx_max = 0
     for j in range(0, len(pi)):
-        C = calculate_Cmax_toidx(pi,j) + pi[j][2]
+        C = calculate_Cmax_toidx(pi,j) #+ pi[j][2]
         if C >= Cmax:
             Cmax = C
             idx_max = j
@@ -273,17 +275,17 @@ def carlier(zad):
     for task in K:
         phat += task[1]
     cr_old = c[0]
-    c[0] = max(c[0], rhat + phat)
+    pi[idx_c][0] = max(c[0], rhat + phat)
     LB = schragePMTNWithHeap(copy.deepcopy(pi)) #?
     if LB < UB:
         carlier(pi)
-    c[0] = cr_old
+    pi[idx_c][0] = cr_old
     cq_old = c[2]
-    c[2] = max(c[2], qhat + phat)
+    pi[idx_c][2] = max(c[2], qhat + phat)
     LB = schragePMTNWithHeap(copy.deepcopy(pi)) #?
     if LB < UB:
         carlier(pi)
-    c[2] = cq_old
+    pi[idx_c][2] = cq_old
 
 
 '''
@@ -302,6 +304,7 @@ sortRQ(zadania)
 print("Kolejnosc: ", getOrder(zadania))
 print("Czas: ", calculate_Cmax(zadania))
 '''
+'''
 print("- Schrage -")
 nowe_zadania = schrage(copy.deepcopy(zadania))
 print("Kolejnosc: ", getOrder(nowe_zadania))
@@ -317,5 +320,7 @@ print("Czas: ", schragePMTN(copy.deepcopy(zadania)))
 
 print("- SchragePMTNWithHeap -")
 print("Czas: ", schragePMTNWithHeap(copy.deepcopy(zadania)))
-
-carlier(copy.deepcopy(zadania))
+'''
+print(calculate_Cmax(zadania))
+print(calculate_Cmax_toidx(zadania, 4))
+#carlier(copy.deepcopy(zadania))
