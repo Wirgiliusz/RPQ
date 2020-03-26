@@ -7,7 +7,7 @@ import copy
 #1. Dodac Carliera
 #2. Zrobic pomiary
 
-plik = open("dane_testowe/in50.txt", "r")
+plik = open("data/data10.txt", "r")
 linie = plik.readlines()
 n = int(linie[0].split()[0])
 
@@ -242,7 +242,7 @@ def carlier(zad):
             idx_max = j
     b = pi[idx_max]
     # szukanie a
-    Cmax = 0
+    Cmax = math.inf
     p_sum = 0
     idx_min = 0
     for j in range(0, len(pi)):
@@ -272,8 +272,19 @@ def carlier(zad):
     phat = 0
     for task in K:
         phat += task[1]
+    cr_old = c[0]
     c[0] = max(c[0], rhat + phat)
-    LB = schragePMTNWithHeap(copy.deepcopy(zad))
+    LB = schragePMTNWithHeap(copy.deepcopy(pi)) #?
+    if LB < UB:
+        carlier(pi)
+    c[0] = cr_old
+    cq_old = c[2]
+    c[2] = max(c[2], qhat + phat)
+    LB = schragePMTNWithHeap(copy.deepcopy(pi)) #?
+    if LB < UB:
+        carlier(pi)
+    c[2] = cq_old
+
 
 '''
 # Oryginal
