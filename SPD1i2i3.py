@@ -58,6 +58,22 @@ def calculate_Cmax(zad):
 
     return Cmax
 
+def calculate_Cmax_toidx(zad, idx):
+    S = []
+    C = []
+    Cmax = 0
+
+    S.append(zad[0][0])
+    C.append(S[0] + zad[0][1])
+    Cmax = C[0] + zad[0][2]
+
+    for i in range(1, idx):
+        S.append(max(zad[i][0], C[i-1]))
+        C.append(S[i] + zad[i][1])
+        Cmax = max(Cmax, C[i] + zad[i][2])
+
+    return Cmax
+
 def getOrder(zad):
     kolejnosc = []
     for i in range(0, len(zad)):
@@ -70,6 +86,15 @@ def minr(z):
     for i in range(0, len(z)):
         if z[i][0] < minimum:
             minimum = z[i][0]
+            minimum_indeks = i
+    return minimum_indeks
+
+def minq(z):
+    minimum = math.inf
+    minimum_indeks = None
+    for i in range(0, len(z)):
+        if z[i][2] < minimum:
+            minimum = z[i][2]
             minimum_indeks = i
     return minimum_indeks
 
@@ -200,6 +225,56 @@ def schragePMTNWithHeap(zad):
     print("Czas wykonania: {:f}".format(end-start))
     return Cmax
 
+def carlier(zad):
+    UB = math.inf
+    pi = schrageWithHeap(copy.deepcopy(zad))
+    U = calculate_Cmax(pi)
+    if U < UB:
+        UB = U
+        pistar = copy.deepcopy(pi)
+    # szukanie b
+    Cmax = 0
+    idx_max = 0
+    for j in range(0, len(pi)):
+        C = calculate_Cmax_toidx(pi,j) + pi[j][2]
+        if C >= Cmax:
+            Cmax = C
+            idx_max = j
+    b = pi[idx_max]
+    # szukanie a
+    Cmax = 0
+    p_sum = 0
+    idx_min = 0
+    for j in range(0, len(pi)):
+        for k in range(j, idx_max+1):
+            p_sum += pi[k][1]
+        C = pi[j][0] + pi[j][2] + p_sum
+        if C < Cmax:
+            Cmax = C
+            idx_min = j
+    a = pi[idx_min]
+    # szukanie c
+    c = None
+    idx_c = -1
+    for j in range(idx_min, idx_max):
+        if pi[j][2] < b[2]:
+            idx_c = j
+    if idx_c != -1:
+        c = pi[idx_c]
+    else:
+        return pistar
+    
+    K = []
+    for i in range(idx_c+1, idx_max+1):
+        K.append(pi[i])
+    rhat = pi[minr(K)][0]
+    qhat = pi[minq(K)][2]
+    phat = 0
+    for task in K:
+        phat += task[1]
+    c[0] = max(c[0], rhat + phat)
+    LB = schragePMTNWithHeap(copy.deepcopy(zad))
+
 '''
 # Oryginal
 print("- Oryginal -")
@@ -231,3 +306,5 @@ print("Czas: ", schragePMTN(copy.deepcopy(zadania)))
 
 print("- SchragePMTNWithHeap -")
 print("Czas: ", schragePMTNWithHeap(copy.deepcopy(zadania)))
+
+carlier(copy.deepcopy(zadania))
