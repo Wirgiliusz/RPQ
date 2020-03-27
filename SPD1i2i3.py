@@ -7,7 +7,7 @@ import copy
 #1. Dodac Carliera
 #2. Zrobic pomiary
 
-plik = open("data/datatest.txt", "r")
+plik = open("data/data10.txt", "r")
 linie = plik.readlines()
 n = int(linie[0].split()[0])
 
@@ -62,15 +62,16 @@ def calculate_Cmax_toidx(zad, idx):
     S = []
     C = []
     Cmax = 0
+    idx += 1
 
     S.append(zad[0][0])
     C.append(S[0] + zad[0][1])
-    Cmax = C[0] + zad[0][2]
+    Cmax = C[0]
 
     for i in range(1, idx):
         S.append(max(zad[i][0], C[i-1]))
         C.append(S[i] + zad[i][1])
-        Cmax = max(Cmax, C[i] + zad[i][2])
+        Cmax = max(Cmax, C[i])
 
     return Cmax
 
@@ -229,7 +230,7 @@ UB = math.inf
 def carlier(zad):
     #UB = math.inf
     global UB
-    pi = schrageWithHeap(copy.deepcopy(zad))
+    pi = schrageWithHeap(zad)
     U = calculate_Cmax(pi)
     if U < UB:
         UB = U
@@ -238,7 +239,7 @@ def carlier(zad):
     Cmax = 0
     idx_max = 0
     for j in range(0, len(pi)):
-        C = calculate_Cmax_toidx(pi,j) #+ pi[j][2]
+        C = calculate_Cmax_toidx(pi,j) + pi[j][2]
         if C >= Cmax:
             Cmax = C
             idx_max = j
@@ -250,7 +251,7 @@ def carlier(zad):
     for j in range(0, len(pi)):
         for k in range(j, idx_max+1):
             p_sum += pi[k][1]
-        C = pi[j][0] + pi[j][2] + p_sum
+        C = pi[j][0] + b[2] + p_sum
         if C < Cmax:
             Cmax = C
             idx_min = j
@@ -317,10 +318,12 @@ print("Czas: ", calculate_Cmax(nowe_zadania))
 
 print("- SchragePMTN -")
 print("Czas: ", schragePMTN(copy.deepcopy(zadania)))
-
-print("- SchragePMTNWithHeap -")
-print("Czas: ", schragePMTNWithHeap(copy.deepcopy(zadania)))
 '''
+#print("- SchragePMTNWithHeap -")
+#print("Czas: ", schragePMTNWithHeap(copy.deepcopy(zadania)))
+
 print(calculate_Cmax(zadania))
-print(calculate_Cmax_toidx(zadania, 4))
-#carlier(copy.deepcopy(zadania))
+print(calculate_Cmax_toidx(zadania, 0))
+print(calculate_Cmax_toidx(zadania, 0)+zadania[0][2])
+
+print(calculate_Cmax(carlier(copy.deepcopy(zadania))))
