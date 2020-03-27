@@ -7,7 +7,7 @@ import copy
 #1. Dodac Carliera
 #2. Zrobic pomiary
 
-plik = open("data/data20.txt", "r")
+plik = open("data/data100.txt", "r")
 linie = plik.readlines()
 n = int(linie[0].split()[0])
 
@@ -223,7 +223,8 @@ def carlier(zad):
     U = calculate_Cmax(pi)
     if U < UB:
         UB = U
-        pistar = copy.deepcopy(pi)
+        pistar = pi
+        print(calculate_Cmax(pistar))
     # szukanie b
     Cmax = 0
     idx_max = 0
@@ -255,6 +256,7 @@ def carlier(zad):
     if idx_c != -1:
         c = pi[idx_c]
     else:
+        print(calculate_Cmax(pistar))
         return pistar
     
     K = []
@@ -277,6 +279,7 @@ def carlier(zad):
     if LB < UB:
         carlier(pi)
     pi[idx_c][2] = cq_old
+    print("XD",calculate_Cmax(pistar))
     return pistar
 
 
