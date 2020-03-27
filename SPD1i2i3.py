@@ -7,20 +7,24 @@ import copy
 #1. Dodac Carliera
 #2. Zrobic pomiary
 
-plik = open("data/data100.txt", "r")
-linie = plik.readlines()
-n = int(linie[0].split()[0])
 
-zadania = []
-for i in range(1, n+1):
-    linia = linie[i].split()
-    zadania.append([int(linia[0]),int(linia[1]),int(linia[2]), i])
-plik.close()
+def loadData(path):
+    plik = open(path, "r")
+    linie = plik.readlines()
+    n = int(linie[0].split()[0])
+
+    zadania = []
+    for i in range(1, n+1):
+        linia = linie[i].split()
+        zadania.append([int(linia[0]),int(linia[1]),int(linia[2]), i])
+    plik.close()
+
+    return zadania
 
 def sortR(zad):
     while True:
         zmiana = False
-        for j in range(0, n-1):
+        for j in range(0, len(zad)-1):
             if zad[j][0] > zad[j+1][0]:
                 zad[j], zad[j+1] = zad[j+1], zad[j]
                 zmiana = True
@@ -33,7 +37,7 @@ def sortRQ(zad):
 
     while True:
         zmiana = False
-        for j in range(0, n - 1):
+        for j in range(0, len(zad)-1):
             if zad[j][0] == zad[j+1][0]:
                 if zad[j][2] < zad[j + 1][2]:
                     zad[j], zad[j + 1] = zad[j + 1], zad[j]
@@ -51,7 +55,7 @@ def calculate_Cmax(zad):
     C.append(S[0] + zad[0][1])
     Cmax = C[0] + zad[0][2]
 
-    for i in range(1, n):
+    for i in range(1, len(zad)):
         S.append(max(zad[i][0], C[i-1]))
         C.append(S[i] + zad[i][1])
         Cmax = max(Cmax, C[i] + zad[i][2])
@@ -283,6 +287,9 @@ def carlier(zad):
 
     carlierRecursion(zad)
     return pistar
+
+
+zadania = loadData("data/data100.txt")
 
 '''
 # Oryginal
