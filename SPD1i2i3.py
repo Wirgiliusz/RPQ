@@ -7,7 +7,7 @@ import copy
 #1. Dodac Carliera
 #2. Zrobic pomiary
 
-plik = open("data/data10.txt", "r")
+plik = open("data/data500.txt", "r")
 linie = plik.readlines()
 n = int(linie[0].split()[0])
 
@@ -227,10 +227,11 @@ def schragePMTNWithHeap(zad):
     return Cmax
 
 UB = math.inf
+pistar = []
 def carlier(zad):
-    #UB = math.inf
     global UB
-    pi = schrageWithHeap(zad)
+    global pistar
+    pi = schrageWithHeap(copy.deepcopy(zad))
     U = calculate_Cmax(pi)
     if U < UB:
         UB = U
@@ -245,14 +246,15 @@ def carlier(zad):
             idx_max = j
     b = pi[idx_max]
     # szukanie a
-    Cmax = math.inf
+    Cmax = 0
     p_sum = 0
     idx_min = 0
     for j in range(0, len(pi)):
+        p_sum = 0
         for k in range(j, idx_max+1):
             p_sum += pi[k][1]
         C = pi[j][0] + b[2] + p_sum
-        if C < Cmax:
+        if C > Cmax:
             Cmax = C
             idx_min = j
     a = pi[idx_min]
@@ -270,8 +272,8 @@ def carlier(zad):
     K = []
     for i in range(idx_c+1, idx_max+1):
         K.append(pi[i])
-    rhat = pi[minr(K)][0]
-    qhat = pi[minq(K)][2]
+    rhat = K[minr(K)][0]
+    qhat = K[minq(K)][2]
     phat = 0
     for task in K:
         phat += task[1]
@@ -287,6 +289,7 @@ def carlier(zad):
     if LB < UB:
         carlier(pi)
     pi[idx_c][2] = cq_old
+    return pistar
 
 
 '''
@@ -319,11 +322,14 @@ print("Czas: ", calculate_Cmax(nowe_zadania))
 print("- SchragePMTN -")
 print("Czas: ", schragePMTN(copy.deepcopy(zadania)))
 '''
-#print("- SchragePMTNWithHeap -")
-#print("Czas: ", schragePMTNWithHeap(copy.deepcopy(zadania)))
+print("- SchragePMTNWithHeap -")
+print("Czas: ", schragePMTNWithHeap(copy.deepcopy(zadania)))
 
-print(calculate_Cmax(zadania))
-print(calculate_Cmax_toidx(zadania, 0))
-print(calculate_Cmax_toidx(zadania, 0)+zadania[0][2])
+#print(calculate_Cmax(zadania))
+#print(calculate_Cmax_toidx(zadania, 0))
+#print(calculate_Cmax_toidx(zadania, 0)+zadania[0][2])
+
+#carlier(copy.deepcopy(zadania))
+#print(calculate_Cmax(pistar))
 
 print(calculate_Cmax(carlier(copy.deepcopy(zadania))))
