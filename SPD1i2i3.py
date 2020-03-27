@@ -306,13 +306,13 @@ print("- SortRQ -")
 sortRQ(zadania)
 print("Kolejnosc: ", getOrder(zadania))
 print("Czas: ", calculate_Cmax(zadania))
-'''
-'''
+
+
 print("- Schrage -")
 nowe_zadania = schrage(copy.deepcopy(zadania))
 print("Kolejnosc: ", getOrder(nowe_zadania))
 print("Czas: ", calculate_Cmax(nowe_zadania))
-'''
+
 print("- SchrageWithHeap -")
 start = timeit.default_timer()
 nowe_zadania = schrageWithHeap(copy.deepcopy(zadania))
@@ -321,10 +321,9 @@ print("Czas: ", calculate_Cmax(nowe_zadania))
 print("Czas wykonania: {:f}".format(end-start))
 #print("Kolejnosc: ", getOrder(nowe_zadania))
 
-'''
 print("- SchragePMTN -")
 print("Czas: ", schragePMTN(copy.deepcopy(zadania)))
-'''
+
 print("- SchragePMTNWithHeap -")
 start = timeit.default_timer()
 print("Czas: ", schragePMTNWithHeap(copy.deepcopy(zadania)))
@@ -336,4 +335,4 @@ start = timeit.default_timer()
 print("Czas: ", calculate_Cmax(carlier(copy.deepcopy(zadania))))
 end = timeit.default_timer()
 print("Czas wykonania: {:f}".format(end-start))
-
+'''

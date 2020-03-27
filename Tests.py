@@ -17,6 +17,24 @@ class TestRPQ_data10(unittest.TestCase):
         rpq.sortRQ(self.zadania)
         self.assertEqual(rpq.calculate_Cmax(self.zadania), 746)
 
+    def test_schrage(self):
+        nowe_zadania = rpq.schrage(self.zadania)
+        self.assertEqual(rpq.calculate_Cmax(nowe_zadania), 687)
+
+    def test_schrageWithHeap(self):
+        nowe_zadania = rpq.schrageWithHeap(self.zadania)
+        self.assertEqual(rpq.calculate_Cmax(nowe_zadania), 687)
+
+    #def test_schragePMTN(self):
+    #    self.assertEqual(rpq.schragePMTN(self.zadania), ?)
+
+    #def test_schragePMTNWithHeap(self):
+    #    self.assertEqual(rpq.schrageWithHeap(self.zadania), ?)
+
+    def test_carlier(self):
+        nowe_zadania = rpq.carlier(self.zadania)
+        self.assertEqual(rpq.calculate_Cmax(nowe_zadania), 641)
+
 class TestRPQ_data20(unittest.TestCase):
     def setUp(self):
         self.zadania = rpq.loadData("data/data20.txt")
@@ -31,6 +49,24 @@ class TestRPQ_data20(unittest.TestCase):
     def test_sortRQ(self):
         rpq.sortRQ(self.zadania)
         self.assertEqual(rpq.calculate_Cmax(self.zadania), 1594)
+
+    def test_schrage(self):
+        nowe_zadania = rpq.schrage(self.zadania)
+        self.assertEqual(rpq.calculate_Cmax(nowe_zadania), 1299)
+
+    def test_schrageWithHeap(self):
+        nowe_zadania = rpq.schrageWithHeap(self.zadania)
+        self.assertEqual(rpq.calculate_Cmax(nowe_zadania), 1299)
+
+    #def test_schragePMTN(self):
+    #    self.assertEqual(rpq.schragePMTN(self.zadania), ?)
+
+    #def test_schragePMTNWithHeap(self):
+    #    self.assertEqual(rpq.schrageWithHeap(self.zadania), ?)
+
+    def test_carlier(self):
+        nowe_zadania = rpq.carlier(self.zadania)
+        self.assertEqual(rpq.calculate_Cmax(nowe_zadania), 1267)
 
 class TestRPQ_data50(unittest.TestCase):
     def setUp(self):
@@ -47,6 +83,24 @@ class TestRPQ_data50(unittest.TestCase):
         rpq.sortRQ(self.zadania)
         self.assertEqual(rpq.calculate_Cmax(self.zadania), 1915)
 
+    def test_schrage(self):
+        nowe_zadania = rpq.schrage(self.zadania)
+        self.assertEqual(rpq.calculate_Cmax(nowe_zadania), 1513)
+
+    def test_schrageWithHeap(self):
+        nowe_zadania = rpq.schrageWithHeap(self.zadania)
+        self.assertEqual(rpq.calculate_Cmax(nowe_zadania), 1513)
+
+    #def test_schragePMTN(self):
+    #    self.assertEqual(rpq.schragePMTN(self.zadania), ?)
+
+    #def test_schragePMTNWithHeap(self):
+    #    self.assertEqual(rpq.schrageWithHeap(self.zadania), ?)
+
+    def test_carlier(self):
+        nowe_zadania = rpq.carlier(self.zadania)
+        self.assertEqual(rpq.calculate_Cmax(nowe_zadania), 1492)
+
 class TestRPQ_data100(unittest.TestCase):
     def setUp(self):
         self.zadania = rpq.loadData("data/data100.txt")
@@ -61,6 +115,24 @@ class TestRPQ_data100(unittest.TestCase):
     def test_sortRQ(self):
         rpq.sortRQ(self.zadania)
         self.assertEqual(rpq.calculate_Cmax(self.zadania), 3936)
+
+    def test_schrage(self):
+        nowe_zadania = rpq.schrage(self.zadania)
+        self.assertEqual(rpq.calculate_Cmax(nowe_zadania), 3076)
+
+    def test_schrageWithHeap(self):
+        nowe_zadania = rpq.schrageWithHeap(self.zadania)
+        self.assertEqual(rpq.calculate_Cmax(nowe_zadania), 3076)
+
+    #def test_schragePMTN(self):
+    #    self.assertEqual(rpq.schragePMTN(self.zadania), ?)
+
+    #def test_schragePMTNWithHeap(self):
+    #    self.assertEqual(rpq.schrageWithHeap(self.zadania), ?)
+
+    def test_carlier(self):
+        nowe_zadania = rpq.carlier(self.zadania)
+        self.assertEqual(rpq.calculate_Cmax(nowe_zadania), 3070)
 
 class TestRPQ_data200(unittest.TestCase):
     def setUp(self):
@@ -77,6 +149,24 @@ class TestRPQ_data200(unittest.TestCase):
         rpq.sortRQ(self.zadania)
         self.assertEqual(rpq.calculate_Cmax(self.zadania), 8210)
 
+    def test_schrage(self):
+        nowe_zadania = rpq.schrage(self.zadania)
+        self.assertEqual(rpq.calculate_Cmax(nowe_zadania), 6416)
+
+    def test_schrageWithHeap(self):
+        nowe_zadania = rpq.schrageWithHeap(self.zadania)
+        self.assertEqual(rpq.calculate_Cmax(nowe_zadania), 6416)
+
+    #def test_schragePMTN(self):
+    #    self.assertEqual(rpq.schragePMTN(self.zadania), ?)
+
+    #def test_schragePMTNWithHeap(self):
+    #    self.assertEqual(rpq.schrageWithHeap(self.zadania), ?)
+
+    #def test_carlier(self):
+    #    nowe_zadania = rpq.carlier(self.zadania)
+    #    self.assertEqual(rpq.calculate_Cmax(nowe_zadania), ?)
+
 class TestRPQ_data500(unittest.TestCase):
     def setUp(self):
         self.zadania = rpq.loadData("data/data500.txt")
@@ -91,6 +181,24 @@ class TestRPQ_data500(unittest.TestCase):
     def test_sortRQ(self):
         rpq.sortRQ(self.zadania)
         self.assertEqual(rpq.calculate_Cmax(self.zadania), 19609)
+
+    def test_schrage(self):
+        nowe_zadania = rpq.schrage(self.zadania)
+        self.assertEqual(rpq.calculate_Cmax(nowe_zadania), 14822)
+
+    def test_schrageWithHeap(self):
+        nowe_zadania = rpq.schrageWithHeap(self.zadania)
+        self.assertEqual(rpq.calculate_Cmax(nowe_zadania), 14822)
+
+    #def test_schragePMTN(self):
+    #    self.assertEqual(rpq.schragePMTN(self.zadania), ?)
+
+    #def test_schragePMTNWithHeap(self):
+    #    self.assertEqual(rpq.schrageWithHeap(self.zadania), ?)
+
+    #def test_carlier(self):
+    #    nowe_zadania = rpq.carlier(self.zadania)
+    #    self.assertEqual(rpq.calculate_Cmax(nowe_zadania), ?)
 
 
 
