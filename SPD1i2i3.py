@@ -7,7 +7,7 @@ import copy
 #1. Dodac Carliera
 #2. Zrobic pomiary
 
-plik = open("data/data20.txt", "r")
+plik = open("data/data100.txt", "r")
 linie = plik.readlines()
 n = int(linie[0].split()[0])
 
@@ -214,71 +214,75 @@ def schragePMTNWithHeap(zad):
 
     return Cmax
 
-UB = math.inf
-pistar = []
 def carlier(zad):
-    global UB
-    global pistar
-    pi = schrageWithHeap(copy.deepcopy(zad))
-    U = calculate_Cmax(pi)
-    if U < UB:
-        UB = U
-        pistar = pi
+    UB = math.inf
+    pistar = []
 
-    # szukanie b
-    idx_max = 0
-    for j in range(0, len(pi)):
-        C = calculate_Cmax_toidx(pi,j) + pi[j][2]
-        if C == U:
-            idx_max = j
-    b = pi[idx_max]
+    def carlierRecursion(zad):
+        nonlocal UB
+        nonlocal pistar
+        pi = schrageWithHeap(copy.deepcopy(zad))
+        U = calculate_Cmax(pi)
+        if U < UB:
+            UB = U
+            pistar = pi
 
-    # szukanie a
-    p_sum = 0
-    idx_min = 0
-    for j in range(0, len(pi)):
+        # szukanie b
+        idx_max = 0
+        for j in range(0, len(pi)):
+            C = calculate_Cmax_toidx(pi,j) + pi[j][2]
+            if C == U:
+                idx_max = j
+        b = pi[idx_max]
+
+        # szukanie a
         p_sum = 0
-        for k in range(j, idx_max+1):
-            p_sum += pi[k][1]
-        C = pi[j][0] + b[2] + p_sum
-        if C == U:
-            idx_min = j
-            break
+        idx_min = 0
+        for j in range(0, len(pi)):
+            p_sum = 0
+            for k in range(j, idx_max+1):
+                p_sum += pi[k][1]
+            C = pi[j][0] + b[2] + p_sum
+            if C == U:
+                idx_min = j
+                break
 
-    # szukanie c
-    c = None
-    idx_c = -1
-    for j in range(idx_min, idx_max):
-        if pi[j][2] < b[2]:
-            idx_c = j
-    if idx_c != -1:
-        c = pi[idx_c]
-    else:
+        # szukanie c
+        c = None
+        idx_c = -1
+        for j in range(idx_min, idx_max):
+            if pi[j][2] < b[2]:
+                idx_c = j
+        if idx_c != -1:
+            c = pi[idx_c]
+        else:
+            return pistar
+        
+        K = []
+        for i in range(idx_c+1, idx_max+1):
+            K.append(pi[i])
+        rhat = K[minr(K)][0]
+        qhat = K[minq(K)][2]
+        phat = 0
+        for task in K:
+            phat += task[1]
+        cr_old = c[0]
+        pi[idx_c][0] = max(c[0], rhat + phat)
+        LB = schragePMTNWithHeap(copy.deepcopy(pi)) #?
+        if LB < UB:
+            carlierRecursion(pi)
+        pi[idx_c][0] = cr_old
+        cq_old = c[2]
+        pi[idx_c][2] = max(c[2], qhat + phat)
+        LB = schragePMTNWithHeap(copy.deepcopy(pi)) #?
+        if LB < UB:
+            carlierRecursion(pi)
+        pi[idx_c][2] = cq_old
+
         return pistar
-    
-    K = []
-    for i in range(idx_c+1, idx_max+1):
-        K.append(pi[i])
-    rhat = K[minr(K)][0]
-    qhat = K[minq(K)][2]
-    phat = 0
-    for task in K:
-        phat += task[1]
-    cr_old = c[0]
-    pi[idx_c][0] = max(c[0], rhat + phat)
-    LB = schragePMTNWithHeap(copy.deepcopy(pi)) #?
-    if LB < UB:
-        carlier(pi)
-    pi[idx_c][0] = cr_old
-    cq_old = c[2]
-    pi[idx_c][2] = max(c[2], qhat + phat)
-    LB = schragePMTNWithHeap(copy.deepcopy(pi)) #?
-    if LB < UB:
-        carlier(pi)
-    pi[idx_c][2] = cq_old
 
+    carlierRecursion(zad)
     return pistar
-
 
 '''
 # Oryginal
