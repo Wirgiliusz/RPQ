@@ -7,7 +7,7 @@ import copy
 #1. Dodac Carliera
 #2. Zrobic pomiary
 
-plik = open("data/data500.txt", "r")
+plik = open("data/data20.txt", "r")
 linie = plik.readlines()
 n = int(linie[0].split()[0])
 
@@ -313,12 +313,12 @@ print("- Schrage -")
 nowe_zadania = schrage(copy.deepcopy(zadania))
 print("Kolejnosc: ", getOrder(nowe_zadania))
 print("Czas: ", calculate_Cmax(nowe_zadania))
-
+'''
 print("- SchrageWithHeap -")
 nowe_zadania = schrageWithHeap(copy.deepcopy(zadania))
 print("Kolejnosc: ", getOrder(nowe_zadania))
 print("Czas: ", calculate_Cmax(nowe_zadania))
-
+'''
 print("- SchragePMTN -")
 print("Czas: ", schragePMTN(copy.deepcopy(zadania)))
 '''
