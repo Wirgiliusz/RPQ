@@ -291,48 +291,62 @@ def carlier(zad):
 
 zadania = loadData("data/data100.txt")
 
-'''
+
 # Oryginal
 print("- Oryginal -")
-print("Kolejnosc: ", getOrder(zadania))
-print("Czas: ", calculate_Cmax(zadania))
+print("Czas (Cmax): ", calculate_Cmax(zadania))
+print()
+
 # Sort R
 print("- SortR -")
-sortR(zadania)
-print("Kolejnosc: ", getOrder(zadania))
-print("Czas: ", calculate_Cmax(zadania))
+start = timeit.default_timer()
+sortR(copy.deepcopy(zadania))
+end = timeit.default_timer()
+print("Czas (Cmax): ", calculate_Cmax(zadania))
+print("Czas wykonania: {:f}\n".format(end-start))
+
 # Sort RQ
 print("- SortRQ -")
-sortRQ(zadania)
-print("Kolejnosc: ", getOrder(zadania))
-print("Czas: ", calculate_Cmax(zadania))
+start = timeit.default_timer()
+sortRQ(copy.deepcopy(zadania))
+end = timeit.default_timer()
+print("Czas (Cmax): ", calculate_Cmax(zadania))
+print("Czas wykonania: {:f}\n".format(end-start))
 
-
+# Schrage
 print("- Schrage -")
+start = timeit.default_timer()
 nowe_zadania = schrage(copy.deepcopy(zadania))
-print("Kolejnosc: ", getOrder(nowe_zadania))
-print("Czas: ", calculate_Cmax(nowe_zadania))
+end = timeit.default_timer()
+print("Czas (Cmax): ", calculate_Cmax(nowe_zadania))
+print("Czas wykonania: {:f}\n".format(end-start))
 
+# Schrage z kopcem
 print("- SchrageWithHeap -")
 start = timeit.default_timer()
 nowe_zadania = schrageWithHeap(copy.deepcopy(zadania))
 end = timeit.default_timer()
-print("Czas: ", calculate_Cmax(nowe_zadania))
-print("Czas wykonania: {:f}".format(end-start))
-#print("Kolejnosc: ", getOrder(nowe_zadania))
+print("Czas (Cmax): ", calculate_Cmax(nowe_zadania))
+print("Czas wykonania: {:f}\n".format(end-start))
 
+# Schrage z przerwaniami
 print("- SchragePMTN -")
-print("Czas: ", schragePMTN(copy.deepcopy(zadania)))
+start = timeit.default_timer()
+print("Czas (Cmax): ", schragePMTN(copy.deepcopy(zadania)))
+end = timeit.default_timer()
+print("Czas wykonania: {:f}\n".format(end-start))
 
+# Schrage z przerwaniami i kopcem
 print("- SchragePMTNWithHeap -")
 start = timeit.default_timer()
-print("Czas: ", schragePMTNWithHeap(copy.deepcopy(zadania)))
+print("Czas (Cmax): ", schragePMTNWithHeap(copy.deepcopy(zadania)))
 end = timeit.default_timer()
-print("Czas wykonania: {:f}".format(end-start))
+print("Czas wykonania: {:f}\n".format(end-start))
 
+# Carlier
 print("- Carlier -")
 start = timeit.default_timer()
-print("Czas: ", calculate_Cmax(carlier(copy.deepcopy(zadania))))
+print("Czas (Cmax): ", calculate_Cmax(carlier(copy.deepcopy(zadania))))
 end = timeit.default_timer()
-print("Czas wykonania: {:f}".format(end-start))
-'''
+print("Czas wykonania: {:f}\n".format(end-start))
+
