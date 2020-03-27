@@ -109,7 +109,6 @@ def maxq(z):
     return maksimum_indeks
 
 def schrage(zad):
-    start = timeit.default_timer()
     pi = []
     G = []
     N = zad
@@ -128,12 +127,9 @@ def schrage(zad):
         else:
             t = N[minr(N)][0]
 
-    end = timeit.default_timer()
-    print("Czas wykonania: {:f}".format(end-start))
     return pi
     
 def schrageWithHeap(zad):
-    start = timeit.default_timer()
     pi = []
     G = []
     heapq.heapify(G) # kopiec przechwowujacy zadania wedlug malejacego q (max na szczycie)
@@ -155,12 +151,9 @@ def schrageWithHeap(zad):
         else:
             t = N[0][0]
 
-    end = timeit.default_timer()
-    print("Czas wykonania: {:f}".format(end-start))
     return pi
 
 def schragePMTN(zad):
-    start = timeit.default_timer()
     G = []
     N = zad
     t = N[minr(N)][0]
@@ -187,12 +180,9 @@ def schragePMTN(zad):
         else:
             t = N[minr(N)][0]
         
-    end = timeit.default_timer()
-    print("Czas wykonania: {:f}".format(end-start))
     return Cmax
 
 def schragePMTNWithHeap(zad):
-    start = timeit.default_timer()
     G = []
     heapq.heapify(G) # kopiec przechwowujacy zadania wedlug malejacego q (max na szczycie)
     N = zad
@@ -222,8 +212,6 @@ def schragePMTNWithHeap(zad):
         else:
             t = N[0][0]
 
-    end = timeit.default_timer()
-    print("Czas wykonania: {:f}".format(end-start))
     return Cmax
 
 UB = math.inf
@@ -315,21 +303,26 @@ print("Kolejnosc: ", getOrder(nowe_zadania))
 print("Czas: ", calculate_Cmax(nowe_zadania))
 '''
 print("- SchrageWithHeap -")
+start = timeit.default_timer()
 nowe_zadania = schrageWithHeap(copy.deepcopy(zadania))
-print("Kolejnosc: ", getOrder(nowe_zadania))
+end = timeit.default_timer()
 print("Czas: ", calculate_Cmax(nowe_zadania))
+print("Czas wykonania: {:f}".format(end-start))
+#print("Kolejnosc: ", getOrder(nowe_zadania))
+
 '''
 print("- SchragePMTN -")
 print("Czas: ", schragePMTN(copy.deepcopy(zadania)))
 '''
 print("- SchragePMTNWithHeap -")
+start = timeit.default_timer()
 print("Czas: ", schragePMTNWithHeap(copy.deepcopy(zadania)))
+end = timeit.default_timer()
+print("Czas wykonania: {:f}".format(end-start))
 
-#print(calculate_Cmax(zadania))
-#print(calculate_Cmax_toidx(zadania, 0))
-#print(calculate_Cmax_toidx(zadania, 0)+zadania[0][2])
+print("- Carlier -")
+start = timeit.default_timer()
+print("Czas: ", calculate_Cmax(carlier(copy.deepcopy(zadania))))
+end = timeit.default_timer()
+print("Czas wykonania: {:f}".format(end-start))
 
-#carlier(copy.deepcopy(zadania))
-#print(calculate_Cmax(pistar))
-
-print(calculate_Cmax(carlier(copy.deepcopy(zadania))))
