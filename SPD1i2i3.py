@@ -30,7 +30,7 @@ def sortR(zad):
                 zmiana = True
 
         if zmiana == False:
-            return
+            return zad
 
 def sortRQ(zad):
     sortR(zad)
@@ -44,7 +44,7 @@ def sortRQ(zad):
                     zmiana = True
 
         if zmiana == False:
-            return
+            return zad
 
 def calculate_Cmax(zad):
     S = []
@@ -300,17 +300,17 @@ print()
 # Sort R
 print("- SortR -")
 start = timeit.default_timer()
-sortR(copy.deepcopy(zadania))
+nowe_zadania = sortR(copy.deepcopy(zadania))
 end = timeit.default_timer()
-print("Czas (Cmax): ", calculate_Cmax(zadania))
+print("Czas (Cmax): ", calculate_Cmax(nowe_zadania))
 print("Czas wykonania: {:f}\n".format(end-start))
 
 # Sort RQ
 print("- SortRQ -")
 start = timeit.default_timer()
-sortRQ(copy.deepcopy(zadania))
+nowe_zadania = sortRQ(copy.deepcopy(zadania))
 end = timeit.default_timer()
-print("Czas (Cmax): ", calculate_Cmax(zadania))
+print("Czas (Cmax): ", calculate_Cmax(nowe_zadania))
 print("Czas wykonania: {:f}\n".format(end-start))
 
 # Schrage
