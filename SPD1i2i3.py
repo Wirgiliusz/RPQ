@@ -3,10 +3,6 @@ import heapq
 import timeit
 import copy
 
-### TODO ###
-#1. Dodac Carliera
-#2. Zrobic pomiary
-
 
 def loadData(path):
     plik = open(path, "r")
@@ -289,7 +285,7 @@ def carlier(zad):
     return pistar
 
 
-zadania = loadData("data/data100.txt")
+zadania = loadData("data/data20.txt")
 
 
 # Oryginal
@@ -350,3 +346,4 @@ print("Czas (Cmax): ", calculate_Cmax(carlier(copy.deepcopy(zadania))))
 end = timeit.default_timer()
 print("Czas wykonania: {:f}\n".format(end-start))
 
+print(getOrder(carlier(copy.deepcopy(zadania))))
