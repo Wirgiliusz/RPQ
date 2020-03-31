@@ -345,5 +345,3 @@ start = timeit.default_timer()
 print("Czas (Cmax): ", calculate_Cmax(carlier(copy.deepcopy(zadania))))
 end = timeit.default_timer()
 print("Czas wykonania: {:f}\n".format(end-start))
-
-print(getOrder(carlier(copy.deepcopy(zadania))))
